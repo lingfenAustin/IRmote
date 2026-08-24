@@ -1,0 +1,39 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- 必须继承 Theme.MaterialComponents 系列，TextInputLayout 才能正常渲染 -->
+    <style name="Theme.CustomIrRemote" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- 主色调 -->
+        <item name="colorPrimary">#1565C0</item>
+        <item name="colorPrimaryDark">#0D47A1</item>
+        <item name="colorSecondary">#42A5F5</item>
+        <item name="colorError">#D32F2F</item>
+
+        <!-- 页面背景 -->
+        <item name="android:windowBackground">#F5F7FA</item>
+
+        <!-- 全局圆角配置 -->
+        <item name="shapeAppearanceSmallComponent">
+            @style/ShapeAppearance.App.SmallComponent
+        </item>
+        <item name="shapeAppearanceMediumComponent">
+            @style/ShapeAppearance.App.MediumComponent
+        </item>
+        <item name="shapeAppearanceLargeComponent">
+            @style/ShapeAppearance.App.LargeComponent
+        </item>
+
+        <!-- 状态栏 -->
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- 圆角形状配置 -->
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">8dp</item>
+    </style>
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">12dp</item>
+    </style>
+    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerSize">16dp</item>
+    </style>
+</resources>
