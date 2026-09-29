@@ -56,6 +56,7 @@ public class ParseRemoteActivity extends AppCompatActivity {
 
         Matcher matcher = KEY_PATTERN.matcher(xmlText);
         while (matcher.find()) {
+            if(matcher.group(2).equals("KEY_SL_FAC_FAC")){continue;}
             String value = matcher.group(1); // 0x开头的8位十六进制
             String keyNameAttr = matcher.group(2); // name属性
 //            String comment = matcher.group(4); // 注释内容

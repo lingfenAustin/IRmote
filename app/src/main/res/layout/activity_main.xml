@@ -47,25 +47,25 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btn_wifi1"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="安卓9"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        app:backgroundTint="?attr/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btn_wifi2"
-        android:layout_marginBottom="12dp"
-        android:layout_marginEnd="20dp"/>
+<!--    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton-->
+<!--        android:id="@+id/btn_wifi1"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="安卓9"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@color/white"-->
+<!--        app:backgroundTint="?attr/colorPrimary"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/btn_wifi2"-->
+<!--        android:layout_marginBottom="12dp"-->
+<!--        android:layout_marginEnd="20dp"/>-->
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btn_wifi2"
+        android:id="@+id/btn_wifi"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="安卓14"
+        android:text="联网"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:backgroundTint="?attr/colorPrimary"

@@ -1,7 +1,5 @@
 package com.example.customirremote.utils;
 
-import android.util.Log;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,18 +35,6 @@ public class HexInvertUtil {
                 : header;
         String rawKey = rawKeyCode.toUpperCase().trim();
         String invertKey = getKeyInvertCode(rawKey);
-        return swappedHeader + rawKey + invertKey;
-    }
-
-    public static String getFullIrCode(String rawKeyCode) {
-        String header = "FB41";
-        // 头码4位：前后两位对调（高低字节交换）
-        String swappedHeader = header.length() >= 4
-                ? header.substring(2) + header.substring(0, 2)
-                : header;
-        String rawKey = rawKeyCode.toUpperCase().trim();
-        String invertKey = getKeyInvertCode(rawKey);
-        Log.d("TAG", "swappedHeader + rawKey + invertKey:" + swappedHeader + rawKey + invertKey);
         return swappedHeader + rawKey + invertKey;
     }
 

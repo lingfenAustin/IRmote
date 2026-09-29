@@ -3,14 +3,14 @@ package com.example.customirremote.utils;
 import android.content.Context;
 
 public class WifiCommandUtil {
-    public static void sendWifi(Context context, int n){
+    public static void sendWifi(Context context){
         try {
             int delay = 120;
             // 6 6
-            send(context, "41FB8E71");
-            Thread.sleep(delay);
-            send(context, "41FB8E71");
-            Thread.sleep(delay);
+            for(int i = 0; i < 2; i++) {
+                send(context, "41FB8E71");
+                Thread.sleep(delay);
+            }
             // 8 8 8 8 8 8
             for(int i = 0; i < 6; i++){
                 send(context, "41FB916E");
@@ -21,13 +21,8 @@ public class WifiCommandUtil {
             // 返回
             send(context, "41FBCC33");
             Thread.sleep(delay);
-            // 下
-            send(context, "41FB9D62");
-            Thread.sleep(delay);
-            // 下
-            send(context, "41FB9D62");
-            Thread.sleep(delay);
-            if(n == 1){
+            // 下 下 下
+            for(int i = 0; i < 3; i++) {
                 send(context, "41FB9D62");
                 Thread.sleep(delay);
             }
@@ -38,7 +33,7 @@ public class WifiCommandUtil {
         }
     }
 
-    private static void send(Context context, String code){
+    public static void send(Context context, String code){
         IrTransmitUtil.transmit(context, code);
     }
 }

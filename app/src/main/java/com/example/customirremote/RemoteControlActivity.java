@@ -1,11 +1,12 @@
 package com.example.customirremote;
 
+import static com.example.customirremote.utils.WifiCommandUtil.send;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,7 +37,6 @@ public class RemoteControlActivity extends AppCompatActivity {
     private KeyAdapter adapter;
     private final Handler handler = new Handler(Looper.getMainLooper());
     private Runnable repeatRunnable;
-    private String currentFullCode;
 
     //顶部固定按钮
     private final Map<String,Integer> fixedBtnMap =
@@ -52,7 +52,6 @@ public class RemoteControlActivity extends AppCompatActivity {
                 put("KEY_CHANNELUP", R.id.btn_ch_up);
                 put("KEY_CHANNELDOWN", R.id.btn_ch_down);
                 put("KEY_BACK", R.id.btn_back);
-                put("KEY_SL_FAC_FAC", R.id.btn_fac);
             }};
 
     static class KeyDisplayItem{
@@ -88,6 +87,7 @@ public class RemoteControlActivity extends AppCompatActivity {
         //绑定顶部固定按键
         bindFixedButtons();
         bindWifiButton();
+        bindFacButton();
         //下面动态按键
         List<KeyDisplayItem> list = buildGridItems();
         adapter = new KeyAdapter(this, list);
@@ -114,18 +114,24 @@ public class RemoteControlActivity extends AppCompatActivity {
     }
 
     private void bindWifiButton(){
-        MaterialButton btnWifi1 = findViewById(R.id.btn_wifi1);
-        MaterialButton btnWifi2 = findViewById(R.id.btn_wifi2);
-        if(btnWifi1 == null || btnWifi2 == null){
+        MaterialButton btnWifi = findViewById(R.id.btn_wifi);
+        if(btnWifi == null){
             return;
         }
-        btnWifi1.setOnClickListener(v -> {
-            WifiCommandUtil.sendWifi(RemoteControlActivity.this,1);
-        });
-        btnWifi2.setOnClickListener(v -> {
-            WifiCommandUtil.sendWifi(RemoteControlActivity.this,2);
+        btnWifi.setOnClickListener(v -> {
+            WifiCommandUtil.sendWifi(RemoteControlActivity.this);
         });
 
+    }
+
+    private void bindFacButton(){
+        MaterialButton btnFac = findViewById(R.id.btn_fac);
+        if(btnFac == null) {
+            return;
+        }
+        btnFac.setOnClickListener(v -> {
+            send(this, "41FBD728");
+        });
     }
 
     /**
@@ -150,19 +156,18 @@ public class RemoteControlActivity extends AppCompatActivity {
                 .replace("_", "");
         //方向键兼容
         if(name.equals("KEY UP")){name = "UP";}
-        if(name.equals("KEY DOWN")){name = "DOWN";}
-        if(name.equals("KEY LEFT")){name = "LEFT";}
-        if(name.equals("KEY RIGHT")){name = "RIGHT";}
+        else if(name.equals("KEY DOWN")){name = "DOWN";}
+        else if(name.equals("KEY LEFT")){name = "LEFT";}
+        else if(name.equals("KEY RIGHT")){name = "RIGHT";}
         //确认键兼容
-        if(name.equals("KEY ENTER")){name = "ENTER";}
+        else if(name.equals("KEY ENTER")){name = "ENTER";}
         //音量兼容
-        if(name.equals("VOL+")){name = "VOLUMEUP";}
-        if(name.equals("VOL-")){name = "VOLUMEDOWN";}
+        else if(name.equals("VOL+")){name = "VOLUMEUP";}
+        else if(name.equals("VOL-")){name = "VOLUMEDOWN";}
         //频道兼容
-        if(name.equals("CH+")){name = "CHANNELUP";}
-        if(name.equals("CH-")){name = "CHANNELDOWN";}
-        if(name.equals("KEY BACK")){name = "Exit";}
-        if(name.equals("KEY SL_FAC_FAC")){name = "工厂";}
+        else if(name.equals("CH+")){name = "CHANNELUP";}
+        else if(name.equals("CH-")){name = "CHANNELDOWN";}
+        else if(name.equals("KEY BACK")){name = "Exit";}
         return name;
     }
 
@@ -226,9 +231,7 @@ public class RemoteControlActivity extends AppCompatActivity {
         btn.setOnTouchListener((v,event)->{
                     switch(event.getAction()){
                         case MotionEvent.ACTION_UP:
-                            currentFullCode = code;
                             IrTransmitUtil.transmit(RemoteControlActivity.this, code);
-//                            startRepeat();
                             v.setPressed(true);
                             return true;
                         case MotionEvent.ACTION_DOWN:
@@ -242,26 +245,11 @@ public class RemoteControlActivity extends AppCompatActivity {
 
     }
 
-//    private void startRepeat(){
-//        stopRepeat();
-//        repeatRunnable = new Runnable(){
-//                    @Override
-//                    public void run(){
-//                        if(currentFullCode != null){
-//                            IrTransmitUtil.transmit(RemoteControlActivity.this, currentFullCode);
-//                            handler.postDelayed(this, 110);
-//                        }
-//                    }
-//                };
-//        handler.postDelayed(repeatRunnable, 110);
-//    }
-
     private void stopRepeat(){
         if(repeatRunnable != null){
             handler.removeCallbacks(repeatRunnable);
             repeatRunnable = null;
         }
-        currentFullCode = null;
     }
 
     private class KeyAdapter extends BaseAdapter{

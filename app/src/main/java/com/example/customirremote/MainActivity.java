@@ -26,7 +26,6 @@ import androidx.appcompat.app.AlertDialog;
 public class MainActivity extends AppCompatActivity {
     private List<RemoteConfig> configList;
     private RemoteAdapter adapter;
-    private RemoteConfig config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,53 +66,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void bindWifiButton(){
-        MaterialButton btnWifi1 = findViewById(R.id.btn_wifi1);
-        MaterialButton btnWifi2 = findViewById(R.id.btn_wifi2);
-        if(btnWifi1 == null || btnWifi2 == null){
+        MaterialButton btnWifi = findViewById(R.id.btn_wifi);
+        if(btnWifi == null){
             return;
         }
 
-        btnWifi1.setOnClickListener(v -> {
-            WifiCommandUtil.sendWifi(MainActivity.this, 1);
+        btnWifi.setOnClickListener(v -> {
+            WifiCommandUtil.sendWifi(MainActivity.this);
         });
-        btnWifi2.setOnClickListener(v -> {
-            WifiCommandUtil.sendWifi(MainActivity.this,2);
-        });
-    }
-
-    private String normalizeKeyName(String name){
-        name = name.toUpperCase()
-                .replace("KEY_", "")
-                .replace("_", "");
-        //方向键兼容
-        if(name.equals("KEY UP")){name = "UP";}
-        if(name.equals("KEY DOWN")){name = "DOWN";}
-        if(name.equals("KEY LEFT")){name = "LEFT";}
-        if(name.equals("KEY RIGHT")){name = "RIGHT";}
-        //确认键兼容
-        if(name.equals("KEY ENTER")){name = "ENTER";}
-        //音量兼容
-        if(name.equals("VOL+")){name = "VOLUMEUP";}
-        if(name.equals("VOL-")){name = "VOLUMEDOWN";}
-        //频道兼容
-        if(name.equals("CH+")){name = "CHANNELUP";}
-        if(name.equals("CH-")){name = "CHANNELDOWN";}
-        return name;
-    }
-
-    /**
-     * 查找按键
-     * 兼容 KEY_POWER / POWER
-     */
-    private KeyItem findKeyByKeyName(String keyName){
-        String target = normalizeKeyName(keyName);
-        for(KeyItem item : config.getKeyList()){
-            String name = normalizeKeyName(item.getKeyName());
-            if(name.equals(target)){
-                return item;
-            }
-        }
-        return null;
     }
 
     @Override

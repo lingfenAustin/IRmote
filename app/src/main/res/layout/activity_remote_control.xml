@@ -51,26 +51,26 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_wifi1"
+            android:id="@+id/btn_wifi"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:text="安卓9"
+            android:text="联网"
             android:textSize="12sp"
             app:cornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_wifi2"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="安卓14"
-            android:textSize="12sp"
-            app:cornerRadius="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_wifi1" />
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/btn_wifi2"-->
+<!--            style="@style/Widget.Material3.Button.OutlinedButton"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:text="安卓14"-->
+<!--            android:textSize="12sp"-->
+<!--            app:cornerRadius="12dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/btn_wifi1" />-->
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_back"
